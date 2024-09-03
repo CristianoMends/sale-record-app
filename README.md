@@ -1,27 +1,51 @@
-# SaleRecordApp
+# Sale Record App
+Esta aplicação foi desenvolvida utilizando Angular 17 para gerenciamento de registros de vendas, oferecendo uma interface amigável e funcional para o usuário.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.5.
+## Status
+`Em Andamento`
 
-## Development server
+## 📐 Design
+O design da interface do usuário está em planejamento e está disponível no Figma. Confira o protótipo para ter uma visão geral do layout e das funcionalidades já planejadas:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+[Ver Design no Figma](https://www.figma.com/design/5uBqjttvUKBa79uKKy5bZ0/sale-manager?node-id=0-1&t=GQMZ9s9ZcBetKC8z-1)
+## 🚀 Backend
+O backend da aplicação foi desenvolvido para gerenciar os dados de vendas, utilizando uma API robusta para suportar as operações do sistema. O código-fonte do backend está disponível no GitHub:
 
-## Code scaffolding
+[Repositório do Backend](https://github.com/CristianoMends/sales-record-system)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## 📚 Tecnologias Utilizadas
+- #### Frontend: Angular 17
+- #### Backend: Java 17, Spring Boot 3,PostgreSQL
+- #### Design: Figma
+## 📦 Instalação e Configuração
+Requisitos
+Node.js (versão 20 ou superior)
+Angular CLI
+Passos para Rodar o Projeto
+Clone o repositório:
+```bash
+git clone https://github.com/CristianoMends/sales-record-app
+```
+Instale as dependências:
+```bash
+cd sales-record-app
+npm install
+```
+Inicie o servidor de desenvolvimento:
+```bash
+ng serve
+```
+Acesse a aplicação: Abra o navegador e acesse http://localhost:4200.
+## 🛠️ Funcionalidades
+Gerenciamento de vendas com adição, edição e exclusão de registros
+Interface amigável e responsiva
+Integração com backend para persistência dos dados
+## 👥 Contribuição
+Sinta-se à vontade para contribuir com melhorias, correções ou novas funcionalidades! 
+### Para começar:
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### Faça um fork do projeto
+- Crie uma branch com a sua feature: `git checkout -b minha-feature`
+- Faça um commit das suas alterações: git commit -m `Adiciona nova feature`
+- Envie para o seu repositório forkado: `git push origin minha-feature`
+- Abra um `Pull Request`

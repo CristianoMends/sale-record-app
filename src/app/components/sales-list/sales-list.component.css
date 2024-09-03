@@ -1,0 +1,58 @@
+.sales-list-container {
+  margin: auto;
+  padding: 20px;
+  overflow: hidden;
+  box-shadow: 2px 1px 4px rgba(0, 0, 0, 0.478);
+  border-radius: 10px;
+  height: 50dvh;
+  width: 100%;
+  background-color: aliceblue;
+  position: relative;
+}
+
+
+.container {
+  overflow-y: auto;
+  height: 80%;
+}
+
+.container div {
+  width: 100%;
+}
+
+.sales-list-container h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.total-sales {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  position: absolute;
+  bottom: 0;
+}
+
+
+.sales-table {
+  width: 700px;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  font-size: 0.9em;
+}
+
+.sales-table th,
+.sales-table td {
+  padding: 10px 5px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.sales-table td.description {
+  width: 40%;
+  max-width: 300px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  text-align: left;
+}

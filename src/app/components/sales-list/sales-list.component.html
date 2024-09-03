@@ -1,0 +1,36 @@
+<div *ngIf="isLoading; else content">
+    <app-loading-spinner></app-loading-spinner>
+</div>
+<ng-template #content>
+    <div class="sales-list-container">
+        <h1>Vendas</h1>
+        <div class="container">
+            <div *ngIf="sales; else noSales">
+                <table class="sales-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Valor</th>
+                            <th>Forma de pagamento</th>
+                            <th>Data</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let sale of sales">
+                            <td>{{sale.id}}</td>
+                            <td>{{sale.total.toFixed(2).replace('.', ',')}}</td>
+                            <td>{{ formatPaymentMethod(sale.paymentMethod) }}</td>
+                            <td>{{ sale.date | date:'dd/MM/yyyy HH:mm' }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="total-sales">
+            <p>Total: R$ {{ totalToday.toFixed(2).replace('.', ',') }}</p>
+        </div>
+        <ng-template #noSales>
+            <p>Nenhuma venda registrada hoje.</p>
+        </ng-template>
+    </div>
+</ng-template>
