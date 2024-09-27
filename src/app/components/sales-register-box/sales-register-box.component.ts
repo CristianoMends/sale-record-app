@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import CreateSale from '../../interface/CreateSale';
 import { SaleService } from '../../service/sale.service';
@@ -7,12 +7,13 @@ import Item from '../../interface/Item';
 import SaleItem from '../../interface/SaleItem';
 import { ItemService } from '../../service/item.service';
 import { LoadingSpinnerComponent } from "../../shared/loading-spinner/loading-spinner.component";
+import { MessageComponent } from "../message/message.component";
 
 @Component({
   selector: 'app-sales-register-box',
   standalone: true,
   providers: [SaleService, ItemService],
-  imports: [CommonModule, FormsModule, LoadingSpinnerComponent],
+  imports: [CommonModule, FormsModule, LoadingSpinnerComponent, MessageComponent],
   templateUrl: './sales-register-box.component.html',
   styleUrl: './sales-register-box.component.css'
 })
@@ -23,6 +24,7 @@ export class SalesRegisterBoxComponent {
     private itemService: ItemService) {
 
   }
+  @ViewChild('message') message!:MessageComponent;
   currentQuantity: number = 1;
   total: number = 0.0;
   items: Item[] = [];
@@ -39,7 +41,7 @@ export class SalesRegisterBoxComponent {
         quantity: 2
       }
     ],
-    paymentMethod: "CREDIT"
+    paymentMethod: "PIX"
   };
   
 
@@ -91,18 +93,30 @@ export class SalesRegisterBoxComponent {
   }
 
   finalizeSale() {
-    // Atualiza os itens da venda com os itens selecionados
+    if(this.saleItems.length < 1){
+      this.message.title = 'Nenhum produto adicionado!';
+      this.message.message = 'Para salvar uma venda, primeiro adicione itens!';
+      this.message.showContainer();
+      return;
+    }
+    this.isLoading = true;
     this.sale.itens = this.saleItems.map(saleItem => ({
       item: {
         id: Number(saleItem.item.id)  // Converte 'id' de string para number
       },
       quantity: saleItem.quantity
     }));
-  
-    // Chama o serviço para salvar a venda
-    this.saleService.saveSale(this.sale);
-  
-    console.log("Venda finalizada", this.sale);
+    this.saleService.saveSale(this.sale).subscribe({
+      next:()=>{
+        this.isLoading = false;
+        window.location.reload();
+      },
+      error:()=>{
+        this.isLoading = false;
+        this.message.title = 'Erro ao registrar venda!';
+        this.message.showContainer();
+      }
+    });
   }
   
   

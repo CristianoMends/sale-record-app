@@ -1,13 +1,11 @@
 .sales-list-container {
   margin: auto;
-  padding: 20px;
   overflow: hidden;
   box-shadow: 2px 1px 4px rgba(0, 0, 0, 0.478);
   border-radius: 10px;
-  height: 50dvh;
-  width: 100%;
   background-color: aliceblue;
   position: relative;
+  padding-bottom: 10px;
 }
 
 
@@ -25,34 +23,36 @@
   color: #333;
   margin-bottom: 20px;
 }
-
-.total-sales {
-  margin-top: 20px;
-  font-size: 18px;
-  font-weight: bold;
-  position: absolute;
-  bottom: 0;
+table{
+  background-color: aliceblue;
+  width: 100%;
+  height: max-content;
 }
-
-
-.sales-table {
-  width: 700px;
-  border-collapse: collapse;
-  margin-bottom: 20px;
-  font-size: 0.9em;
+.container{
+  width: 50vw;
+  max-height: 50dvh;
+  overflow: auto;
+  background-color: aliceblue;
+  border-radius: 10px;
+  padding: 0;
 }
-
-.sales-table th,
-.sales-table td {
-  padding: 10px 5px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
+thead{
+  background-color: #2d2d34;
+  color: aliceblue;
+  border-bottom: 1px solid;
 }
-
-.sales-table td.description {
-  width: 40%;
-  max-width: 300px;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  text-align: left;
+thead th{
+  padding: 5px;
+}
+tr{
+  border-bottom: 1px solid;
+}
+td {
+  font-weight: 500;
+  text-align: right;
+  border-bottom: 1px solid #aaa;
+  padding: 5px;
+}
+tbody tr:nth-child(even) {
+  background-color: #e0e0e0;
 }

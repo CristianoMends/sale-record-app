@@ -32,7 +32,7 @@ export class SaleService {
   }
 
   getAllSales(): Observable<ViewSale[]> {
-    return this.http.get<ViewSale[]>(this.apiUrl!);
+    return this.http.get<ViewSale[]>(`${this.apiUrl!}sale`);
   }
 
   private getInitDateTime(): string {
@@ -66,9 +66,8 @@ export class SaleService {
 
 
 
-  saveSale(sale: CreateSale) {
-    console.log(sale);
-    this.http.post<CreateSale>(this.apiUrl!, sale)
+  saveSale(sale: CreateSale):Observable<any> {
+    return this.http.post<any>(`${this.apiUrl!}sale`, sale)
   }
 
 }

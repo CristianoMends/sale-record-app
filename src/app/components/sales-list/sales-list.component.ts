@@ -29,7 +29,6 @@ export class SalesListComponent {
           this.isLoading = false;
         },
         error: (err) => {
-          console.error('Erro ao carregar vendas', err);
           this.isLoading = false;
         }
       }

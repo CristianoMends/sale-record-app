@@ -6,7 +6,7 @@ body, html{
     background-color: #111;
 }
 :root{
-    --primary-color: #33a;
+    --primary-color: rgb(84, 84, 255);
 }
 
 *::-webkit-scrollbar {

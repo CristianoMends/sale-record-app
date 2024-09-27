@@ -11,13 +11,21 @@
 }
 
 .logo{
-    background-color: red;
     width: 200px;
     height: 100%;
     margin: 0 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8em;
+    font-family: fantasy;
+    text-shadow: 1px 1px 3px white;
+    gap: 5px;
+}
+.v{
+    font-size: 20px;
 }
 .adm{
-    background-color: red;
     width: 150px;
     height: 100%;
 }

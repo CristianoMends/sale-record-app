@@ -3,12 +3,13 @@ import { SalesRegisterBoxComponent } from "../../components/sales-register-box/s
 import { SalesListComponent } from "../../components/sales-list/sales-list.component";
 import { HeaderComponent } from "../../components/header/header.component";
 import { SideMenuComponent } from "../../components/side-menu/side-menu.component";
-import { SectionHomeComponent } from "../../components/section-home/section-home.component";
+import { SalesChartComponent } from "../../components/sales-chart/sales-chart.component";
+import { PaymentChartComponent } from "../../components/payment-chart/payment-chart.component";
 
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [SalesRegisterBoxComponent, SalesListComponent, HeaderComponent, SideMenuComponent, SectionHomeComponent],
+  imports: [SalesRegisterBoxComponent, SalesListComponent, HeaderComponent, SideMenuComponent, SalesChartComponent, PaymentChartComponent],
   templateUrl: './main.component.html',
   styleUrl: './main.component.css'
 })
