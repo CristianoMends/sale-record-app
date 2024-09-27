@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import Item from '../interface/Item';
 import { Observable } from 'rxjs';
 import { environment } from '../environment';
+import CreateItem from '../interface/CreateItem';
 
 
 @Injectable({
@@ -16,7 +17,10 @@ export class ItemService {
     }
 
     getAll(): Observable<Item[]> {
-        return this.http.get<Item[]>(this.apiUrl!);
+        return this.http.get<Item[]>(this.apiUrl! + 'item');
+    }
+    save(item:CreateItem):Observable<Item[]>{
+        return this.http.post<Item[]>(`${this.apiUrl}item`,item);
     }
 
 }

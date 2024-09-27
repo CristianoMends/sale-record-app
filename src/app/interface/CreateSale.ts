@@ -1,6 +1,14 @@
-import SaleItem from "./SaleItem";
 
-export default interface CreateSale{
-    saleItems: SaleItem[];
-    paymentMethod:string;
+export default interface CreateSale {
+    itens: SaleItem[];
+    paymentMethod: 'PIX' | 'DEBIT' | 'CREDIT' | 'MONEY';
 }
+
+export interface SaleItem {
+    item: {
+      id: number;
+    };
+    quantity: number;
+  }
+  
+  

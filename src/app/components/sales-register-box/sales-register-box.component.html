@@ -3,81 +3,75 @@
 </div>
 <ng-template #content>
     <div class="sale-register-box" #content>
-        <div class="header">
-            <h1>Venda</h1>
+        <div class="container">
+            <div>
+                <h3>qtd.</h3>
+                <input max="999" placeholder="Quantidade" type="number" name="quantity" id="quantity" [(ngModel)]="currentQuantity">
+            </div>
+            <div>
+                <h3>Cod.</h3>
+                <input type="text">
+            </div>
+            <div>
+                <h3>Produto</h3>
+                <select id="item-select" [(ngModel)]="selectedItem" name="selectedItem" (change)="addItem()">
+                    <option *ngFor="let item of items" [ngValue]="item">
+                        {{item.description.substring(0,30)}}
+                    </option>
+                </select>
+            </div>
+            <div class="total">
+                <h3>Total</h3>
+                <input type="text" [value]="total.toFixed(2).replace('.',',')">
+            </div>
         </div>
-        <div class="container-left">
-            <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
-                <fieldset>
-                    <legend>Itens:</legend>
-                    <select id="item-select" [(ngModel)]="selectedItem" name="selectedItem">
-                        <option *ngFor="let item of items" [ngValue]="item">{{item.description.substring(0,10)}}
-                        </option>
-                    </select>
-
-                    <div class="qtd-container">
-                        <button (click)="decrementQuantity()">-</button>
-                        <input placeholder="Quantidade" type="number" name="quantity" id="quantity" [value]="quantity">
-                        <button (click)="incrementQuantity()">+</button>
-                    </div>
-                </fieldset>
-
-                <button class="btn-add" (click)="addItem()" [disabled]="quantity == 0">Adicionar</button>
-
-                <fieldset>
-                    <legend>Forma de Pagamento:</legend>
-                    <label>
-                        <input type="radio" name="paymentMethod" value="PIX" [(ngModel)]="sale" required>
-                        Pix
-                    </label>
-                    <label>
-                        <input type="radio" name="paymentMethod" value="DEBIT" [(ngModel)]="sale" required>
-                        Débito
-                    </label>
-                    <label>
-                        <input type="radio" name="paymentMethod" value="CREDIT" [(ngModel)]="sale" required>
-                        Crédito
-                    </label>
-                    <label>
-                        <input type="radio" name="paymentMethod" value="MONEY" [(ngModel)]="sale" required>
-                        Dinheiro
-                    </label>
-                </fieldset>
-                <button class="btn-register" type="submit" [disabled]="registerForm.invalid"
-                    [style]="registerForm.invalid?'background-color:red':''">Finalizar Venda</button>
-            </form>
-        </div>
-        <div class="container-rigth">
+        <div class="container table">
             <table class="item-table">
                 <thead>
                     <tr>
                         <th>Item</th>
-                        <th>Quantidade</th>
-                        <th>Preço</th>
-                        <th>Total</th>
+                        <th>Cod.</th>
+                        <th>Descrição</th>
+                        <th>Qtd.</th>
+                        <th>uni.</th>
+                        <th>total.</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of saleItems">
-                        <td class="description">{{item.item.description}}</td>
+                    <tr *ngFor="let item of saleItems; let i = index">
+                        <td>{{i + 1}}</td>
+                        <td>{{item.item.id}}</td>
+                        <td>{{item.item.description}}</td>
                         <td>{{item.quantity}}</td>
                         <td>{{item.item.price.toFixed(2).replace('.',',')}}</td>
                         <td>{{(item.item.price * item.quantity).toFixed(2).replace('.',',')}}</td>
                     </tr>
-                    <tr class="final-tr">
-                        <td></td>
-                        <td></td>
-                        <td class="total">Total</td>
-                        <td class="total">{{total.toFixed(2).replace('.',',')}}</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
                 </tbody>
             </table>
+        </div>
+        <div class="container">
+            <fieldset>
+                <legend>Forma de Pagamento:</legend>
+                <label>
+                    <input type="radio" name="paymentMethod" value="PIX" [(ngModel)]="sale.paymentMethod" required>
+                    Pix
+                </label>
+                <label>
+                    <input type="radio" name="paymentMethod" value="DEBIT" [(ngModel)]="sale.paymentMethod" required>
+                    Débito
+                </label>
+                <label>
+                    <input type="radio" name="paymentMethod" value="CREDIT" [(ngModel)]="sale.paymentMethod" required>
+                    Crédito
+                </label>
+                <label>
+                    <input type="radio" name="paymentMethod" value="MONEY" [(ngModel)]="sale.paymentMethod" required>
+                    Dinheiro
+                </label>
+            </fieldset>
+        </div>
+        <div class="container">
+            <button class="btn-register" (click)="finalizeSale()">Finalizar Venda</button>
         </div>
     </div>
 </ng-template>

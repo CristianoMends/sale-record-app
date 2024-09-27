@@ -1,1 +1,15 @@
-<p>items-manager works!</p>
+<section class="section products">
+    <app-header></app-header>
+    <div class="d1">
+        <app-side-menu [selected]="'products'"></app-side-menu>
+        <div class="d2">
+            <div *ngIf="isLoading; else content">
+                <app-loading-spinner></app-loading-spinner>
+            </div>
+            <ng-template #content>
+                    <app-item-table [items]="items"></app-item-table>
+            </ng-template>
+            <app-item-register></app-item-register>
+        </div>
+    </div>
+</section>

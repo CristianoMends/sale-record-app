@@ -1,0 +1,16 @@
+<div *ngIf="isLoading; else content">
+    <app-loading-spinner></app-loading-spinner>
+</div>
+<ng-template #content>
+<div>
+    <fieldset>
+      <legend>Registro</legend>
+      <form>
+        <input type="text" placeholder="Descrição" [(ngModel)]="description" name="description">
+        <input type="number" placeholder="Preço" [(ngModel)]="price" name="price">
+        <button (click)="onSubmit()">Salvar</button>
+      </form>
+    </fieldset>
+  </div>
+</ng-template>
+  

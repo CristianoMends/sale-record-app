@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import CreateSale from '../../interface/CreateSale';
 import { SaleService } from '../../service/sale.service';
@@ -23,45 +23,52 @@ export class SalesRegisterBoxComponent {
     private itemService: ItemService) {
 
   }
-  quantity: number = 0;
+  currentQuantity: number = 1;
   total: number = 0.0;
   items: Item[] = [];
-  selectedItem: Item = this.items[0];
+  selectedItem: Item | undefined;
   saleItems: SaleItem[] = []
-  isLoading: boolean = true;
+  isLoading: boolean = false;
+
+  sale: CreateSale = {
+    itens: [
+      {
+        item: {
+          id: 0
+        },
+        quantity: 2
+      }
+    ],
+    paymentMethod: "CREDIT"
+  };
+  
 
   ngOnInit(): void {
     this.loadItems();
   }
 
   incrementQuantity() {
-    this.quantity = (this.quantity + 1) % 100;
+    this.currentQuantity = (this.currentQuantity + 1) % 100;
   }
 
   decrementQuantity() {
-    this.quantity = (this.quantity - 1 + 100) % 100;
+    this.currentQuantity = (this.currentQuantity - 1 + 100) % 100;
   }
 
-
-  sale: CreateSale = {
-    saleItems: [
-      this.saleItems[0]
-    ],
-    paymentMethod: "PIX"
-  }
 
   loadItems(): void {
+    this.isLoading = true;
     this.itemService.getAll().subscribe({
       next: (items: Item[]) => {
         this.items = items;
         if (this.items.length > 0) {
-          this.selectedItem = this.items[0];
+          this.selectedItem = undefined;
         }
-        this.isLoading = false; // Carregamento concluído
+        this.isLoading = false;
       },
       error: (error) => {
         console.error('Erro ao carregar os itens:', error);
-        this.isLoading = false; // Mesmo em caso de erro, finalize o carregamento
+        this.isLoading = false;
       }
     });
   }
@@ -75,20 +82,30 @@ export class SalesRegisterBoxComponent {
   }
 
   addItem() {
-    let item: any;
-    this.items.forEach(i => {
-      if (i === this.selectedItem) {
-        item = i;
-      }
-    });
-    if (item != null) {
-      this.saleItems.splice(0, 0, { item: item, quantity: this.quantity });
+    if (this.selectedItem) {
+      this.saleItems.unshift({ item: this.selectedItem, quantity: this.currentQuantity });
     }
     this.getTotal();
+    this.currentQuantity = 1;
+    this.selectedItem = undefined;
   }
-  onSubmit() {
-    //this.saleService.saveSale(this.sale);
-    //window.location.reload();
+
+  finalizeSale() {
+    // Atualiza os itens da venda com os itens selecionados
+    this.sale.itens = this.saleItems.map(saleItem => ({
+      item: {
+        id: Number(saleItem.item.id)  // Converte 'id' de string para number
+      },
+      quantity: saleItem.quantity
+    }));
+  
+    // Chama o serviço para salvar a venda
+    this.saleService.saveSale(this.sale);
+  
+    console.log("Venda finalizada", this.sale);
   }
+  
+  
+  
 
 }

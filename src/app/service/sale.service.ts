@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import CreateSale from '../interface/CreateSale';
 import ViewSale from '../interface/ViewSale';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { toZonedTime, format } from 'date-fns-tz';
 import { environment } from '../environment';
 
@@ -12,8 +12,6 @@ import { environment } from '../environment';
 })
 export class SaleService {
   private apiUrl: string | undefined;
-  private salesSubject = new BehaviorSubject<ViewSale[]>([]);
-  sales$ = this.salesSubject.asObservable();
 
   constructor(private http: HttpClient) {
     this.apiUrl = environment.apiUrl
@@ -69,13 +67,8 @@ export class SaleService {
 
 
   saveSale(sale: CreateSale) {
-    this.http.post<ViewSale>(this.apiUrl!, sale).subscribe({
-      next: (newSale) => {
-        this.salesSubject.next([...this.salesSubject.value, newSale]);
-        console.log('Sale saved successfully');
-      },
-      error: (err) => console.error(err)
-    });
+    console.log(sale);
+    this.http.post<CreateSale>(this.apiUrl!, sale)
   }
 
 }

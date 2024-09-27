@@ -1,0 +1,37 @@
+.item-table{
+    background-color: aliceblue;
+    width: 100%;
+    height: max-content;
+}
+.table{
+    width: 50vw;
+    max-height: 50dvh;
+    overflow: auto;
+    background-color: aliceblue;
+    box-shadow: 1px 2px 3px #aaa;
+    border-radius: 10px;
+    padding-top: 0;
+}
+.item-table thead{
+    background-color: #2d2d34;
+    color: aliceblue;
+    border-bottom: 1px solid;
+}
+.description{
+    text-align: start;
+}
+.item-table thead th{
+    padding: 5px;
+}
+tr{
+    border-bottom: 1px solid;
+}
+td {
+    font-weight: 500;
+    text-align: right;
+    border-bottom: 1px solid #aaa;
+    padding: 5px;
+}
+tbody tr:nth-child(even) {
+    background-color: #e0e0e0;
+}
