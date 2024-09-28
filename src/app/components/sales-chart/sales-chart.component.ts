@@ -4,11 +4,12 @@ import { NgxEchartsDirective, provideEcharts } from 'ngx-echarts';
 import { EChartsOption } from 'echarts';
 import ViewSale from '../../interface/ViewSale';
 import { SaleService } from '../../service/sale.service';
+import { LoadingSpinnerComponent } from "../../shared/loading-spinner/loading-spinner.component";
 
 @Component({
   selector: 'app-sales-chart',
   standalone: true,
-  imports: [CommonModule, NgxEchartsDirective],
+  imports: [CommonModule, NgxEchartsDirective, LoadingSpinnerComponent],
   providers: [provideEcharts(), SaleService],
   templateUrl: './sales-chart.component.html',
   styleUrls: ['./sales-chart.component.css']
@@ -16,6 +17,7 @@ import { SaleService } from '../../service/sale.service';
 export class SalesChartComponent {
   chartOption: EChartsOption | null = null;
   isBrowser: boolean;
+  isLoading = false;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -29,18 +31,17 @@ export class SalesChartComponent {
   }
 
   loadDataFromAPI() {
+    this.isLoading = true;
     this.saleService.getAllSales().subscribe(sales => {
       const dates = sales.map(sale => this.formatDate(sale.date));
-      const totals = sales.map(sale => sale.total);
+      const totals = sales.map(sale => sale.total.toFixed(2));
       
-      console.log(dates[0])
-
       this.chartOption = {
         xAxis: {
           type: 'category',
           data: dates,
           axisLabel: {
-            rotate: 90
+            rotate: 45
           }
         },
         yAxis: {
@@ -59,6 +60,7 @@ export class SalesChartComponent {
           }
         ]
       };
+      this.isLoading = false;
     });
   }
   formatDate(date: Date): string {

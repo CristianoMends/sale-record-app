@@ -26,6 +26,7 @@
     gap: 15px;
     margin: 10px;
     padding: 10px;
+    filter: drop-shadow(3px 2px 5px #444);
 
     &:hover {
         cursor: pointer;

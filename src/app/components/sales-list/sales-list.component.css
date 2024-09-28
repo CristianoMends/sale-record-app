@@ -13,6 +13,12 @@
   overflow-y: auto;
   height: 80%;
 }
+.total-sales{
+  margin: 0 10px;
+}
+.total-sales p span{
+  color: green;
+}
 
 .container div {
   width: 100%;

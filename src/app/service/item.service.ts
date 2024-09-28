@@ -22,5 +22,8 @@ export class ItemService {
     save(item:CreateItem):Observable<Item[]>{
         return this.http.post<Item[]>(`${this.apiUrl}item`,item);
     }
+    delete(id:number):Observable<any>{
+        return this.http.delete(`${this.apiUrl}item/${id}`);
+    }
 
 }

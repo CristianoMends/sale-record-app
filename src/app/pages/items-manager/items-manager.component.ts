@@ -7,12 +7,13 @@ import { ItemTableComponent } from "../../components/item-table/item-table.compo
 import { SideMenuComponent } from "../../components/side-menu/side-menu.component";
 import { HeaderComponent } from "../../components/header/header.component";
 import { ItemRegisterComponent } from "../../components/item-register/item-register.component";
+import { ItemDeleteComponent } from "../../components/item-delete/item-delete.component";
 
 @Component({
   selector: 'app-items-manager',
   standalone: true,
   providers: [ItemService],
-  imports: [LoadingSpinnerComponent, NgFor, NgIf, ItemTableComponent, SideMenuComponent, HeaderComponent, ItemRegisterComponent],
+  imports: [LoadingSpinnerComponent, NgFor, NgIf, ItemTableComponent, SideMenuComponent, HeaderComponent, ItemRegisterComponent, ItemDeleteComponent],
   templateUrl: './items-manager.component.html',
   styleUrl: './items-manager.component.css'
 })

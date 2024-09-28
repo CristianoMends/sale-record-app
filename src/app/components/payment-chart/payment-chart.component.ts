@@ -3,18 +3,20 @@ import { NgxEchartsDirective, provideEcharts } from 'ngx-echarts';
 import { SaleService } from '../../service/sale.service';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { EChartsOption } from 'echarts';
+import { LoadingSpinnerComponent } from "../../shared/loading-spinner/loading-spinner.component";
 
 @Component({
   selector: 'app-payment-chart',
   standalone: true,
   providers: [provideEcharts(), SaleService],
-  imports: [CommonModule, NgxEchartsDirective],
+  imports: [CommonModule, NgxEchartsDirective, LoadingSpinnerComponent],
   templateUrl: './payment-chart.component.html',
   styleUrls: ['./payment-chart.component.css'] // Corrigido de styleUrl para styleUrls
 })
 export class PaymentChartComponent {
   chartOption: EChartsOption | null = null;
   isBrowser: boolean;
+  isLoading = false;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -28,15 +30,13 @@ export class PaymentChartComponent {
   }
 
   loadDataFromAPI() {
+    this.isLoading = true;
     this.saleService.getAllSales().subscribe(sales => {
-      // Contar a frequência de cada método de pagamento
       const paymentMethodsCount = this.countPaymentMethods(sales);
 
-      // Configurar as opções do gráfico de pizza
       this.chartOption = {
         tooltip: {
           trigger: 'item',
-          formatter: '{a} <br/>{b}: {c} ({d}%)' // Exibe a informação em português
 
         },
         legend: {
@@ -57,11 +57,12 @@ export class PaymentChartComponent {
               }
             },
             label: {
-              formatter: '{b}: {c} ({d}%)' // Formatação dos rótulos
+              formatter: '{b}: {c} ({d}%)'
             }
           }
         ]
       };
+      this.isLoading = false;
     });
   }
 
@@ -77,7 +78,6 @@ export class PaymentChartComponent {
       }
     });
 
-    // Converter o mapa em um array para o gráfico
     return Object.entries(paymentMethodsMap).map(([name, value]) => ({ name, value }));
   }
 }

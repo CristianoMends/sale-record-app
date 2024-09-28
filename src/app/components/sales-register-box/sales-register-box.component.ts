@@ -18,19 +18,19 @@ import { MessageComponent } from "../message/message.component";
   styleUrl: './sales-register-box.component.css'
 })
 export class SalesRegisterBoxComponent {
-
   constructor(
     private saleService: SaleService,
     private itemService: ItemService) {
 
   }
-  @ViewChild('message') message!:MessageComponent;
-  currentQuantity: number = 1;
+  @ViewChild('message') message!: MessageComponent;
+  currentQuantity: number | undefined;
   total: number = 0.0;
   items: Item[] = [];
   selectedItem: Item | undefined;
   saleItems: SaleItem[] = []
   isLoading: boolean = false;
+  cod!: string | undefined;
 
   sale: CreateSale = {
     itens: [
@@ -43,18 +43,30 @@ export class SalesRegisterBoxComponent {
     ],
     paymentMethod: "PIX"
   };
-  
+
 
   ngOnInit(): void {
     this.loadItems();
   }
 
   incrementQuantity() {
-    this.currentQuantity = (this.currentQuantity + 1) % 100;
+    this.currentQuantity = (this.currentQuantity! + 1) % 100;
   }
 
   decrementQuantity() {
-    this.currentQuantity = (this.currentQuantity - 1 + 100) % 100;
+    this.currentQuantity = (this.currentQuantity! - 1 + 100) % 100;
+  }
+
+  addByCod() {
+    for (const item of this.items) {
+      if (item.id == this.cod) {
+        this.selectedItem = item;
+        this.addItem();
+        this.cod = undefined;
+        if (!this.currentQuantity || this.currentQuantity < 1) { this.currentQuantity = 1 }
+        break;
+      }
+    }
   }
 
 
@@ -84,16 +96,18 @@ export class SalesRegisterBoxComponent {
   }
 
   addItem() {
-    if (this.selectedItem) {
+    if (!this.currentQuantity || this.currentQuantity < 1) { this.currentQuantity = 1 }
+
+    if (this.selectedItem && this.currentQuantity) {
       this.saleItems.unshift({ item: this.selectedItem, quantity: this.currentQuantity });
     }
     this.getTotal();
-    this.currentQuantity = 1;
+    this.currentQuantity = undefined;
     this.selectedItem = undefined;
   }
 
   finalizeSale() {
-    if(this.saleItems.length < 1){
+    if (this.saleItems.length < 1) {
       this.message.title = 'Nenhum produto adicionado!';
       this.message.message = 'Para salvar uma venda, primeiro adicione itens!';
       this.message.showContainer();
@@ -107,19 +121,19 @@ export class SalesRegisterBoxComponent {
       quantity: saleItem.quantity
     }));
     this.saleService.saveSale(this.sale).subscribe({
-      next:()=>{
+      next: () => {
         this.isLoading = false;
         window.location.reload();
       },
-      error:()=>{
+      error: () => {
         this.isLoading = false;
         this.message.title = 'Erro ao registrar venda!';
         this.message.showContainer();
       }
     });
   }
-  
-  
-  
+
+
+
 
 }

@@ -5,12 +5,12 @@
     <div class="sale-register-box" #content>
         <div class="container">
             <div>
-                <h3>qtd.</h3>
-                <input max="999" placeholder="Quantidade" type="number" name="quantity" id="quantity" [(ngModel)]="currentQuantity">
+                <h3>Quantidade</h3>
+                <input max="999" type="number" name="quantity" id="quantity" [(ngModel)]="currentQuantity">
             </div>
             <div>
-                <h3>Cod.</h3>
-                <input type="text">
+                <h3>Código</h3>
+                <input type="number" max="999" name="cod" [(ngModel)]="cod" (keydown.enter)="addByCod()">
             </div>
             <div>
                 <h3>Produto</h3>
